@@ -12,9 +12,9 @@
 ## 🔍 2. My Exploration
 - **What I Investigated Further**:
   - I added some more codes to the DataProcessor class (in "processor.py") to create the median value for the dataset. Further, I added docstring explanations in numpy style along with my code, and I included the necessary testing codes in "test_processor.py". Also, while updating my README file, I tried to use some markdown cheatsheet.
-- **Link to Evidence** https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/processor.py
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/tests/test_processor.py
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/README.md 
+- **Link to Evidence** https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/processor.py
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/tests/test_processor.py
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/README.md 
 
 ## 🤖 3. Use of GenAI (if applicable)
 - **What I Asked It To Do**:

@@ -3,8 +3,8 @@
 ## 🛠️ 1. What I Built
 - **Summary**: Week 6 was focused on serving a model using FastAPI, packaging service into a Docker container and building a user interface calling the API.
 - **Key Tools Used**: Docker, Streamlit
-- **Artifact Location**: https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/models 
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/StreamLit%20Photos 
+- **Artifact Location**: https://github.com/oskocak-cell/book-genre-classifier/tree/main/models 
+https://github.com/oskocak-cell/book-genre-classifier/tree/main/StreamLit%20Photos 
 
 - **How to Run** (if applicable):
   1- Install dependencies using requirements.txt using the following command in terminal:
@@ -32,13 +32,13 @@ curl -X POST "http://localhost:8000/predict" \
 9- To run streamlit in terminal:
 streamlit run src/app.py
 
-Expected output: https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/StreamLit%20Photos
+Expected output: https://github.com/oskocak-cell/book-genre-classifier/tree/main/StreamLit%20Photos
 
 ## 🔍 2. My Exploration
 - **What I Investigated Further**:
   - I added /metrics as an additional endpoint. 
 
-- **Link to Evidence** (optional): https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/api.py 
+- **Link to Evidence** (optional): https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/api.py 
 
 ## 🤖 3. Use of GenAI (if applicable)
 - **What I Asked It To Do**:

@@ -16,8 +16,8 @@
 - **What I Investigated Further**:
   - I included additional genres, in other words, I downloaded additional .html files belonging to other genres. (The proof for this is rather from Week 6, because the relevant "data" folder had better stay on my local environment. Otherwise, I have to remove /data from .gitignore .)
   - I added CLI arguments with argparse and extended the download to other book genres/categories.
-- **Link to Evidence** (optional): https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/StreamLit%20Photos#:~:text=StreamLit,-Photos 
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/fetch_data.py 
+- **Link to Evidence** (optional): https://github.com/oskocak-cell/book-genre-classifier/tree/main/StreamLit%20Photos#:~:text=StreamLit,-Photos 
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/fetch_data.py 
 
 ## 🤖 3. Use of GenAI (if applicable)
 - **What I Asked It To Do**:

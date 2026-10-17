@@ -12,7 +12,7 @@
 - **What I Investigated Further**:
   - Virtual environments 
      I tried creating virtual environments with other versions of python than referred in the workbook.
-- **Link to Evidence** (optional):https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/requirements.txt 
+- **Link to Evidence** (optional):https://github.com/oskocak-cell/book-genre-classifier/blob/main/requirements.txt 
 
 ## 🤖 3. Use of GenAI (if applicable)
 - **What I Asked It To Do**:

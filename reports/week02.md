@@ -18,7 +18,7 @@ https://github.com/oskocak-cell/RMD.git
   - As advised, I created a pyproject.toml and added [tool.ruff] section into it.
 
   - Also on a theoretical level, I tried to discover even more why the Linux is popular/important.
-- **Link to Evidence** https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/my_project_week2/pyproject.toml
+- **Link to Evidence** https://github.com/oskocak-cell/book-genre-classifier/blob/main/my_project_week2/pyproject.toml
 
 ## 🤖 3. Use of GenAI (if applicable)
 - **What I Asked It To Do**:

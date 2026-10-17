@@ -1,3 +1,72 @@
+# Reproducibility & Model Deployment — Master's Course Portfolio
+
+**Ozan Safak Kocak · MSc Data Science and Society · Tilburg University · 2025**
+
+This portfolio documents six weeks of work for the Research Seminar in Reproducibility & Model Deployment. It combines course exercises, weekly reflections, and a small book genre classification pipeline using TF-IDF and logistic regression, served through FastAPI and a Streamlit interface. It is an educational prototype, with the original learning narrative retained below.
+
+## Run the final project
+
+Use Python 3.11–3.13. Run all commands from the repository root. The saved model was created with scikit-learn 1.6.1, which is pinned in `requirements.txt`.
+
+```sh
+git clone https://github.com/oskocak-cell/book-genre-classifier.git
+cd book-genre-classifier
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m pytest -q
+python -m uvicorn src.api:app --reload --port 8000
+```
+
+On Windows, activate the environment with `.venv\Scripts\activate` instead. Leave the API running and open a second terminal in the same folder, activate the environment there, then run:
+
+```sh
+python -m streamlit run src/app.py
+```
+
+Open the address printed by Streamlit (normally http://localhost:8501). The API documentation is at http://localhost:8000/docs, with a health check at http://localhost:8000/health. The interface requires the API to be running.
+
+### Rebuild the dataset and model
+
+The saved models are included, so collecting data is optional for trying the interface. To reproduce training, run these commands in order; downloading requires internet access:
+
+```sh
+python src/fetch_data.py
+python src/scrape_books.py
+python src/clean_books.py
+python src/classify.py
+```
+
+Training prints evaluation results and writes `logs/metrics.csv` and the saved models. Downloaded and processed data and logs are excluded from Git. Start with an empty `data/raw/` directory for a fresh collection: the downloader uses timestamped filenames and the parser reads all matching HTML files, so repeated downloads can duplicate titles. Only the first page of each configured category is collected.
+
+### Docker
+
+```sh
+docker build -t book-genre-classifier .
+docker run --rm -p 8000:8000 book-genre-classifier
+```
+
+This starts the API with the included model. Run the Streamlit interface separately as above.
+
+## Portfolio guide and limitations
+
+- [`src/`](src/): the final data pipeline, API, interface, and statistics exercise.
+- [`tests/`](tests/): the original statistics and smoke tests; these do not validate the complete application.
+- [`reports/`](reports/): weekly course reflections. The peer feedback report about another student is omitted from this personal copy.
+- [`my_project_week2/`](my_project_week2/): an earlier command-line exercise.
+- [`deployment/app.py`](deployment/app.py): an early stub, not the final interface; use `src/app.py`.
+- `environment.yml`, the Poetry lockfile, and the training Docker example are historical course artifacts. Use the requirements-based setup above for the final application.
+
+This is a small classroom demonstration, not a production service. Genre predictions can be inaccurate, and the screenshots record examples from the course rather than guaranteed predictions. `/metrics` reports the current training metrics when available locally; otherwise accuracy is unavailable. The archived reflection below includes historical outputs and descriptions that may differ from the final code. The current setup instructions above take precedence.
+
+![Streamlit interface example](StreamLit%20Photos/Curious.png)
+
+The project originated from a course scaffold in the `tcsai` organization. This personal copy preserves the supplied GPL-3.0 license and documents my course work and extensions; it does not claim that all scaffolding was authored by me.
+
+---
+
+## Original course narrative and final reflection
+
 # Welcome
 Welcome to my short but strong adventure in reproducibility! (Both you and my future self!)
 
@@ -43,7 +112,7 @@ Hi again. *Still me*. I’m Ozan Safak Kocak, a student at the **Data Science an
 - Find relevant context in .sandbox and environment.yml files
 - Check Docker files for a first impression on creating docker images
 - See requirements.txt file for parallel updates
-- My Peer Feedback Report is also included under reports 
+- The peer feedback report is omitted from this personal copy. 
 
 **Week 5**
 - Go and explore the "data" folder in the scaffold
@@ -79,27 +148,27 @@ Below are presented some important pieces built throughout the course on a weekl
 
 *Week 2*:
 
-- A mini project for automating data preprocessing: https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/my_project_week2 (Please note that this project is contained within another folder itself so that similar content produced afterward wouldn't contradict with the content of this project.)
+- A mini project for automating data preprocessing: https://github.com/oskocak-cell/book-genre-classifier/tree/main/my_project_week2 (Please note that this project is contained within another folder itself so that similar content produced afterward wouldn't contradict with the content of this project.)
 
 *Week 3*:
 
-- Files to try and experience how testing works (in python): https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/processor.py 
+- Files to try and experience how testing works (in python): https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/processor.py 
 
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/tests/test_processor.py
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/tests/test_processor.py
 
 To <u>run</u> testing (in terminal): pytest -q
 <u>Expected output</u> output: 6 passed in 0.02s
 
 *Week 4*:
 
-- Creating environments: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/requirements.txt
+- Creating environments: https://github.com/oskocak-cell/book-genre-classifier/blob/main/requirements.txt
 
 <u>Run</u> this in your terminal outside any sandbox to get a global check whether numpy is installed: python -c "import numpy; print(numpy.__version__)"
 
 <u>Expected output</u>: Sandboxes don’t leak into the global Python environment. If numpy isn't installed globally, this should fail.
 
-- A configuration file for python packages: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/pyproject.toml 
-- Dockerfile: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/Dockerfile
+- A configuration file for python packages: https://github.com/oskocak-cell/book-genre-classifier/blob/main/pyproject.toml 
+- Dockerfile: https://github.com/oskocak-cell/book-genre-classifier/blob/main/Dockerfile
 
 You need to <u>run</u> the docker image in your terminal with the following command: docker run reproducible-proj
 <u>Expected output</u>: Running experiment...
@@ -112,14 +181,14 @@ Computation: 6
 
 *Week 5*:
 
-- Script to fetch and save raw HTML: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/fetch_data.py
-- Script for parsing saved HTML: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/scrape_books.py
-- Script for storing and scaling mentioned data: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/clean_books.py
-- Script for classification: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/classify.py
+- Script to fetch and save raw HTML: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/fetch_data.py
+- Script for parsing saved HTML: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/scrape_books.py
+- Script for storing and scaling mentioned data: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/clean_books.py
+- Script for classification: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/classify.py
 
 *Week 6*:
 
-- FastAPI Service: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/api.py
+- FastAPI Service: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/api.py
 
 To <u>run</u> the API: uvicorn src.api:app --reload --port 8000
 After you run the API, <u>run in another terminal tab/window</u>: curl -X POST "http://localhost:8000/predict" \
@@ -127,11 +196,11 @@ After you run the API, <u>run in another terminal tab/window</u>: curl -X POST "
 -d '{"text": "the grand design"}'
 <u>Expected output</u>: {"prediction":"science"}
 
-- Dockerfile changed to dockerize the API: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/Dockerfile
-- A Streamlit App: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/app.py
+- Dockerfile changed to dockerize the API: https://github.com/oskocak-cell/book-genre-classifier/blob/main/Dockerfile
+- A Streamlit App: https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/app.py
 
 <u>To run</u> the StreamLit APP: streamlit run src/app.py
-<u>Expected output</u>: https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/README.md#:~:text=StreamLit-,Photos
+<u>Expected output</u>: https://github.com/oskocak-cell/book-genre-classifier/blob/main/README.md#:~:text=StreamLit-,Photos
 
 **2.Considerations on the Progress**
 
@@ -169,24 +238,24 @@ Below is a list of further explorations conducted throughout the process:
 
 - Buddy “feature branch” (as suggested in the first class.) "Since it was not possible to add a buddy to the current class repository, I had to test this feature on another repository on github." https://github.com/oskocak-cell/RMD/compare/feature/add-cli3?expand=1 
 
--As advised, I created a pyproject.toml and added [tool.ruff] section into it. https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/my_project_week2/pyproject.toml
+-As advised, I created a pyproject.toml and added [tool.ruff] section into it. https://github.com/oskocak-cell/book-genre-classifier/blob/main/my_project_week2/pyproject.toml
 
 Also on a theoretical level, I tried to discover even more why the Linux is popular/important.
 
 - I added some more codes to the DataProcessor class (in "processor.py") to create the median value for the dataset. Further, I added docstring explanations in numpy style along with my code, and I included the necessary testing codes in "test_processor.py". Also, while updating my README file, I tried to use some markdown cheatsheet.
 
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/processor.py
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/tests/test_processor.py
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/README.md
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/processor.py
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/tests/test_processor.py
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/README.md
 
 - I tried creating virtual environments with other versions of python than referred in the workbook.
-https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/requirements.txt 
+https://github.com/oskocak-cell/book-genre-classifier/blob/main/requirements.txt 
 
-- I included additional genres, in other words, I downloaded additional .html files belonging to other genres. https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/StreamLit%20Photos#:~:text=StreamLit,-Photos 
+- I included additional genres, in other words, I downloaded additional .html files belonging to other genres. https://github.com/oskocak-cell/book-genre-classifier/tree/main/StreamLit%20Photos#:~:text=StreamLit,-Photos 
 
-- I added CLI arguments with argparse and extended the download to other book genres/categories. https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/fetch_data.py 
+- I added CLI arguments with argparse and extended the download to other book genres/categories. https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/fetch_data.py 
 
-- I added /metrics as an additional endpoint. https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/src/api.py 
+- I added /metrics as an additional endpoint. https://github.com/oskocak-cell/book-genre-classifier/blob/main/src/api.py 
 
 If I had more time, I would dive deeper into Linux. I think that using terminal opens the "computer's universe" and many possibilities. Moreover, I would try to improve prediction capabilities of the model. Trying and failing teach a lot. This effort would also serve my code testing skills.
 
@@ -194,7 +263,7 @@ If I had more time, I would dive deeper into Linux. I think that using terminal 
 
 Following peer feedback:
 
-- I properly included self-explorations in weekly reports https://github.com/tcsai/portfolio-25-26-oskocak-cell/tree/main/reports
+- I properly included self-explorations in weekly reports https://github.com/oskocak-cell/book-genre-classifier/tree/main/reports
 
 - I didn't add images to show some outcomes as suggested in peer feedback. The main reason is that I believe that showing all or many outcomes via images would unnecessarily pollute my project scaffold.I wanted to keep my folder structure clean and precise as much as possible.
 
@@ -202,7 +271,7 @@ Following peer feedback:
 
 Thanks to this process, I increased my awareness in transparent AI using.
 
-I mainly used AI to either understand some concepts further or solve problems faced. Rarely I asked for its support in creating things too. For instance, I asked for ChatGPT's help to set up [tool.ruff] in a pyproject.toml -> https://github.com/tcsai/portfolio-25-26-oskocak-cell/blob/main/my_project_week2/pyproject.toml 
+I mainly used AI to either understand some concepts further or solve problems faced. Rarely I asked for its support in creating things too. For instance, I asked for ChatGPT's help to set up [tool.ruff] in a pyproject.toml -> https://github.com/oskocak-cell/book-genre-classifier/blob/main/my_project_week2/pyproject.toml 
 
 I believe that AI is not very useful in learning new concepts, because there is a huge variety of sources on the internet outside the AI world. Nevertheless, it might simplify complex concepts and thus make them more understandable.
 
